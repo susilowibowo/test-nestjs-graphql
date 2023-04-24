@@ -14,6 +14,7 @@ type Book {
 type Query {
   books: [Book!]!
   book(id: Int!): Book!
+  searchBook(query: String!): [Book!]!
 }
 
 type Mutation {
@@ -27,6 +28,7 @@ input CreateBookInput {
   author: String!
   description: String!
   isbn: String!
+  published: String!
 }
 
 input UpdateBookInput {
@@ -34,5 +36,6 @@ input UpdateBookInput {
   author: String
   description: String
   isbn: String
+  published: String
   id: Int!
 }

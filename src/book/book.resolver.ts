@@ -10,13 +10,13 @@ export class BookResolver {
 
   @Mutation(() => Book)
   async createBook(@Args('input') input: CreateBookInput): Promise<Book> {
-    const { title, author, description, isbn } = input;
+    const { title, author, description, isbn, published } = input;
     const book = new Book();
     book.title = title;
     book.author = author;
     book.description = description;
     book.isbn = isbn;
-    book.published  = new Date().toISOString();
+    book.published  = published;
     return await this.bookService.create(book);
   }
 
@@ -26,12 +26,18 @@ export class BookResolver {
   }
 
   @Query(() => Book, { name: 'book' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.bookService.findOne(id);
+  async findbyId(@Args('id', { type: () => Int }) id: number): Promise<Book> {
+    return await this.bookService.findbyId(id);
+  }
+
+  // controller for search book by title
+  @Query(() => [Book], { name: 'searchBook' })
+  async searchBooks(@Args('query') query: string): Promise<Book[]> {
+    return await this.bookService.search(query);
   }
 
   @Mutation(() => Book)
-  updateBook(@Args('updateBookInput') updateBookInput: UpdateBookInput) {
+  async updateBook(@Args('updateBookInput') updateBookInput: UpdateBookInput): Promise<Book> {
     return this.bookService.update(updateBookInput.id, updateBookInput);
   }
 

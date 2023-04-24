@@ -1,5 +1,5 @@
 import { InputType, Field } from '@nestjs/graphql';
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, Matches } from 'class-validator';
 
 @InputType()
 export class CreateBookInput {
@@ -17,4 +17,8 @@ export class CreateBookInput {
 
   @Field()
   isbn: string;
+
+  @Field()
+  @Matches(/^\d{4}-\d{2}-\d{2}$/)
+  published: string;
 }
