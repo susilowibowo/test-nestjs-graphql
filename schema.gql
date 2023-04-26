@@ -2,40 +2,67 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Author {
+  id: ID!
+  name: String!
+  age: Float
+}
+
 type Book {
   id: ID!
   title: String!
-  author: String!
   isbn: String!
-  description: String!
-  published: String!
+  description: String
+  published: DateTime
+  author: Author!
+  author_id: Float!
 }
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
 
 type Query {
   books: [Book!]!
   book(id: Int!): Book!
   searchBook(query: String!): [Book!]!
+  author(id: Int!): Author!
 }
 
 type Mutation {
   createBook(input: CreateBookInput!): Book!
   updateBook(updateBookInput: UpdateBookInput!): Book!
   removeBook(id: Int!): Book!
+  createAuthor(createAuthorInput: CreateAuthorInput!): Author!
+  updateAuthor(updateAuthorInput: UpdateAuthorInput!): Author!
+  removeAuthor(id: Int!): Author!
 }
 
 input CreateBookInput {
   title: String!
-  author: String!
+  author_id: Float!
   description: String!
   isbn: String!
-  published: String!
+  published: DateTime!
 }
 
 input UpdateBookInput {
   title: String
-  author: String
+  author_id: Float
   description: String
   isbn: String
-  published: String
+  published: DateTime
+  id: Int!
+}
+
+input CreateAuthorInput {
+  name: String!
+  age: Float!
+}
+
+input UpdateAuthorInput {
+  name: String
+  age: Float
   id: Int!
 }

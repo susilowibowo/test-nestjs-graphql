@@ -1,7 +1,8 @@
 // make book entity for typeorm and graphql
 // Path: src\book\book.entity.ts
 import { Field, ID, ObjectType } from '@nestjs/graphql';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Author } from 'src/author/entities/author.entity';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @ObjectType()
 @Entity('books')
@@ -15,18 +16,23 @@ export class Book {
     title: string;
 
     @Field()
-    @Column()
-    author: string;
-
-    @Field()
     @Column({unique: true})
     isbn: string;
 
-    @Field()
+    @Field({nullable: true})
     @Column()
     description: string;
 
+    @Field({nullable: true})
+    @Column({ type: 'date' })
+    published: Date;
+    
+    @Field(() => Author)
+    @ManyToOne(() => Author, (author) => author.books, { eager: true })
+    @JoinColumn({ name: "author_id" })
+    author: Author;
+
     @Field()
     @Column()
-    published: string;
+    author_id: number;
 }
