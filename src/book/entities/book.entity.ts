@@ -27,8 +27,8 @@ export class Book {
     @Column({ type: 'date' })
     published: Date;
     
-    @Field(() => Author)
-    @ManyToOne(() => Author, (author) => author.books, { eager: true })
+    @Field(() => Author, {nullable: true})
+    @ManyToOne(() => Author, (author) => author.books)
     @JoinColumn({ name: "author_id" })
     author: Author;
 

@@ -16,12 +16,12 @@ export class AuthorService {
     return await this.authorRepository.save(author);
   }
 
-  findAll() {
-    return `This action returns all author`;
+  async findAll(): Promise<Author[]> {
+    return await this.authorRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} author`;
+  async findOne(id: number): Promise<Author> {
+    return await this.authorRepository.findOne({where: {id}});
   }
 
   update(id: number, updateAuthorInput: UpdateAuthorInput) {

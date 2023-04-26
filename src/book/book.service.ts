@@ -45,7 +45,11 @@ export class BookService {
 // }
 
   async findAll(): Promise<Book[]> {
-    return await this.bookRepository.find();
+    const books = await this.bookRepository.createQueryBuilder('book')
+      .leftJoinAndSelect('book.author', 'author')
+      .getMany();
+
+    return books;
   }
 
   async findbyId(id: number): Promise<Book> {
@@ -85,11 +89,13 @@ export class BookService {
     return `This action removes a #${id} book`;
   }
 
-  async getAuthor(author_id: number): Promise<Author> {
-    const author = await this.authorRepository.findOne({where: {id: author_id}});
-    if (!author) {
-      throw new Error('Author with ID ${authorId} not found');
-    }
-    return author;
-  }
+  // async getAuthor(author_id: number): Promise<Author> {
+  //   const author = await this.authorRepository.findOne({where: {id: author_id}});
+  //   if (!author) {
+  //     throw new Error('Author with ID ${authorId} not found');
+  //   }
+  //   return author;
+  // }
+
+
 }

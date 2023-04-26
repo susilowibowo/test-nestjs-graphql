@@ -17,14 +17,14 @@ export class AuthorResolver {
     return await this.authorService.create(author);
   }
 
-  @Query(() => [Author], { name: 'author' })
-  findAll() {
-    return this.authorService.findAll();
+  @Query(() => [Author], { name: 'authors' })
+  async findAll(): Promise<Author[]> {
+    return await this.authorService.findAll();
   }
 
   @Query(() => Author, { name: 'author' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.authorService.findOne(id);
+  async findOne(@Args('id', { type: () => Int }) id: number):Promise<Author> {
+    return await this.authorService.findOne(id);
   }
 
   @Mutation(() => Author)
