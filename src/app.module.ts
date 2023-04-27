@@ -10,6 +10,8 @@ import { BookModule } from './book/book.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { AuthorModule } from './author/author.module';
+import { RolesModule } from './roles/roles.module';
+import { PartnersModule } from './partners/partners.module';
 
 @Module({
   imports: [
@@ -22,6 +24,8 @@ import { AuthorModule } from './author/author.module';
     AuthModule,
     UsersModule,
     AuthorModule,
+    RolesModule,
+    PartnersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
