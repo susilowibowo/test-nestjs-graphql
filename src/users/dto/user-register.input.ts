@@ -3,6 +3,7 @@ import { IsNotEmpty, Validate, ValidationArguments } from 'class-validator';
 import { MarketingExistsConstraint } from './marketing-exist.constraint';
 import { IsInt } from 'class-validator';
 import { PartnerType } from 'src/partners/entities/partner-type.entity';
+import { partnerTypeExist } from './partner-type-exist.constraint';
 
 @InputType()
 export class UserRegisterInput {
@@ -36,12 +37,7 @@ export class UserRegisterInput {
     @Field(() => Int)
     @IsNotEmpty()
     @IsInt()
-    @Validate((value: number, args: ValidationArguments) => {
-        const entityManager = args.constraints[0];
-    
-        return entityManager
-          .findOne(PartnerType, { id: value })
-          .then((found) => !!found);
-      }, { message: 'Partner type with id $value does not exist' })
+    // make validation partner is exsit or not, still return error even the partner_type_id is exist
+    // @Validate(partnerTypeExist)
     partner_type_id: number;
 }

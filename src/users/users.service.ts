@@ -7,8 +7,9 @@ import { Partner } from 'src/partners/entities/partner.entity';
 @Injectable()
 export class UsersService {
   constructor (
-    @InjectRepository(User)
-    private userRepository: Repository<User>,
+    // not used because using transaction
+    // @InjectRepository(User)
+    // private userRepository: Repository<User>,
     @InjectRepository(Partner)
     private partnerRepository: Repository<Partner>,
     private dataSource: DataSource,
